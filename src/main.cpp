@@ -49,8 +49,13 @@ void setup() {
   Ethernet.begin(mac, ip);
   server.begin();
   dht.begin();
-
   Serial.println("Server IP: " + Ethernet.localIP());
+
+  lcd.init();
+  lcd.backlight();
+  lcd.createChar(0, tempIcon);
+  lcd.createChar(1, humIcon);
+
 }
 
 void loop() {
