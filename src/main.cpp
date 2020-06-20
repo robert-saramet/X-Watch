@@ -24,6 +24,13 @@
     ---------------------------------
 */
 
+#include <Arduino.h>
+#include <SPI.h>
+#include <Ethernet.h>
+#include <DHT.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+
 byte tempIcon[]={
     B00100,
     B01010,
@@ -35,12 +42,16 @@ byte tempIcon[]={
     B01110
 };
 
-#include <Arduino.h>
-#include <SPI.h>
-#include <Ethernet.h>
-#include <DHT.h>
-#include <Wire.h>
-#include <LiquidCrystal_I2C.h>
+byte humIcon[]=
+{
+  B00100,
+  B00100,
+  B01010,
+  B01010,
+  B10001,
+  B10001,
+  B01110
+};
 
 #define DHTPIN 2
 #define DHTTYPE DHT11
