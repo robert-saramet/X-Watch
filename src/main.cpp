@@ -35,6 +35,7 @@
 #define DHTTYPE DHT11
 
 DHT dht(DHTPIN, DHTTYPE);
+LiquidCrystal_I2C lcd(0x27, 20, 4);
 
 byte mac[] {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
 IPAddress ip(192, 168, 0, 190);
@@ -44,7 +45,12 @@ const int rainPin=A0;
 const int treshold=500;
 
 void setup() {
-  
+  Serial.begin(9600);
+  Ethernet.begin(mac, ip);
+  server.begin();
+  dht.begin();
+
+  Serial.println("Server IP: " + Ethernet.localIP());
 }
 
 void loop() {
