@@ -24,6 +24,17 @@
     ---------------------------------
 */
 
+byte tempIcon[]={
+    B00100,
+    B01010,
+    B01010,
+    B01110,
+    B01110,
+    B11111,
+    B11111,
+    B01110
+};
+
 #include <Arduino.h>
 #include <SPI.h>
 #include <Ethernet.h>
