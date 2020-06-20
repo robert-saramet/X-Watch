@@ -1,3 +1,17 @@
+/* 
+    -----------------------------------------------------------
+    |Library|      Weather     |LED Matrix| Display  |Ethernet|
+    |-------|------------------|----------|----------|--------|
+    |  Name |DHT Sensor Library| MaxMatrix|LedControl|Ethernet|
+    |-------|------------------|----------|----------|--------|
+    |Creator|     Adafruit     | t3chguy  |  wayoda  |Arduino |
+    -----------------------------------------------------------
+
+
+    DHT11 VCC => Shield 5V
+    DHT11 GND => Shield GND
+*/
+
 #include <Arduino.h>
 #include <SPI.h>
 #include <Ethernet.h>
