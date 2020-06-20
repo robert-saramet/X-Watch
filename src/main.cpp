@@ -1,11 +1,11 @@
 /* 
-    -----------------------------------------------------------
-    |Library|      Weather     |LED Matrix| Display  |Ethernet|
-    |-------|------------------|----------|----------|--------|
-    |  Name |DHT Sensor Library| MaxMatrix|LedControl|Ethernet|
-    |-------|------------------|----------|----------|--------|
-    |Creator|     Adafruit     | t3chguy  |  wayoda  |Arduino |
-    -----------------------------------------------------------
+    --------------------------------------------------------------
+    |Library|      Weather     |LED Matrix|   Display   |Ethernet|
+    |-------|------------------|----------|-------------|--------|
+    |  Name |DHT Sensor Library|LedControl|LiquidCrystal|Ethernet|
+    |-------|------------------|----------|-------------|--------|
+    |Creator|     Adafruit     |  wayoda  |John Rickman |Arduino |
+    --------------------------------------------------------------
 
 
     ---------------------------------
@@ -28,6 +28,8 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <DHT.h>
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
 
 #define DHTPIN 2
 #define DHTTYPE DHT11
