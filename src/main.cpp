@@ -42,8 +42,7 @@ byte tempIcon[]={
     B01110
 };
 
-byte humIcon[]=
-{
+byte humIcon[]={
   B00100,
   B00100,
   B01010,
@@ -52,6 +51,17 @@ byte humIcon[]=
   B10001,
   B01110
 };
+
+
+/* const uint64_t zero[]={
+  0x0007050505050700
+};
+
+const uint64_t one[]={
+  0x0007020202030200
+}; */
+
+
 
 #define DHTPIN 2
 #define DHTTYPE DHT11
@@ -71,15 +81,83 @@ void setup() {
   Ethernet.begin(mac, ip);
   server.begin();
   dht.begin();
-  Serial.println("Server IP: " + Ethernet.localIP());
+
+  Serial.print("Server IP: ");
+  Serial.println(Ethernet.localIP());
 
   lcd.init();
   lcd.backlight();
-  lcd.createChar(0, tempIcon);
-  lcd.createChar(1, humIcon);
-
+  lcd.createChar(11, tempIcon);
+  lcd.createChar(12, humIcon);
 }
 
 void loop() {
-  
+  int temp = dht.readTemperature();
+  int hum = dht.readHumidity();
+  int rainValue = analogRead(rainPin);
+
+  EthernetClient client=server.available();
+  if (client){
+    Serial.println("New Client");
+    bool currentLineIsBlank = true;
+    while (client.connected()){
+      if (client.available()){
+        char c = client.read();
+        Serial.write(c);
+        if (c == '\n' && currentLineIsBlank){
+          client.println("HTTP/1.1 200 OK");
+          client.println("Content-Type: text/html");
+          client.println("Connection: close");
+          client.println("Refresh: 5");
+          client.println();
+
+          client.println("<!DOCTYPE HTML>");
+          client.println("<html");
+          client.println("<h2>");
+
+          client.print("Temperatura: ");
+          client.print(temp);
+          client.println("C");
+          client.println("</br>");
+
+          client.print("Umiditate: ");
+          client.print(hum);
+          client.println("%");
+          client.println("</br>");
+
+          if(rainValue < treshold)
+            client.println("Ploua");
+          else client.println("Nu ploua");
+
+          client.println("</h2>");
+          client.println("</html>");
+          client.println("</br>");
+          break;
+        }
+        if (c == '\n')
+          currentLineIsBlank = true;
+        else if (c != '\r')
+          currentLineIsBlank = false;
+      }
+    }
+    delay(1);
+    client.stop();
+    Serial.println("Client Disconnected");
+  }
+  lcd.clear();
+  lcd.write((byte)0);
+  lcd.print("Temperatura: ");
+  lcd.print(temp);
+  lcd.println("C");
+
+  lcd.setCursor(0,1);
+  lcd.write((byte)1);
+  lcd.print("Umiditate: ");
+  lcd.print(hum);
+  lcd.println("%");
+
+  lcd.setCursor(0,2);
+  if(rainValue < treshold)
+    lcd.println("Ploua");
+  else lcd.println("Nu ploua");
 }
