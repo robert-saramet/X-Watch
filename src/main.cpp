@@ -31,7 +31,7 @@
 #include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 
-byte tempIcon[]={
+byte tempIcon[8]={
     B00100,
     B01010,
     B01010,
@@ -42,7 +42,7 @@ byte tempIcon[]={
     B01110
 };
 
-byte humIcon[]={
+byte humIcon[8]={
   B00100,
   B00100,
   B01010,
@@ -85,6 +85,7 @@ void setup() {
   Serial.print("Server IP: ");
   Serial.println(Ethernet.localIP());
 
+  pinMode(rainPin, INPUT);
   pinMode(22, OUTPUT);
   pinMode(24, OUTPUT);
   digitalWrite(22, HIGH);
@@ -150,13 +151,13 @@ void loop() {
     Serial.println("Client Disconnected");
   }
   lcd.clear();
-  lcd.write((byte)0);
+  lcd.write((byte)11);
   lcd.print("Temperatura: ");
   lcd.print(temp);
   lcd.println("C");
 
   lcd.setCursor(0,1);
-  lcd.write((byte)1);
+  lcd.write((byte)12);
   lcd.print("Umiditate: ");
   lcd.print(hum);
   lcd.println("%");
