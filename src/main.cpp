@@ -85,6 +85,11 @@ void setup() {
   Serial.print("Server IP: ");
   Serial.println(Ethernet.localIP());
 
+  pinMode(22, OUTPUT);
+  pinMode(24, OUTPUT);
+  digitalWrite(22, HIGH);
+  digitalWrite(24, HIGH);
+
   lcd.init();
   lcd.backlight();
   lcd.createChar(11, tempIcon);
